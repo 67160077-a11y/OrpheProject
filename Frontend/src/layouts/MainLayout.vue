@@ -27,11 +27,26 @@
           </q-item>
         </div>
       </div>
+      
+      <!-- ส่วนแสดงโปรไฟล์ตามผู้ใช้ที่ Login -->
       <div class="q-pa-md" style="border-top: 1px solid #e0e0e0;">
-        <q-item clickable @click="logout" class="rounded-borders">
-          <q-item-section avatar><q-avatar size="36px"><img src="https://cdn.quasar.dev/img/avatar3.jpg"></q-avatar></q-item-section>
-          <q-item-section><q-item-label class="text-weight-bold">Mr. SomCha</q-item-label></q-item-section>
-          <q-item-section side><q-icon name="logout" size="xs" color="red" /></q-item-section>
+        <!-- เอา clickable และ @click ออกจากตรงนี้ เพื่อไม่ให้กดที่ชื่อแล้ว Log out -->
+        <q-item class="rounded-borders q-px-sm">
+          <q-item-section avatar>
+            <q-avatar size="36px">
+              <!-- ใช้รูป Placeholder ไปก่อน -->
+              <img src="https://cdn.quasar.dev/img/avatar.png">
+            </q-avatar>
+          </q-item-section>
+          
+          <q-item-section>
+            <q-item-label class="text-weight-bold">{{ userProfile.name }}</q-item-label>
+          </q-item-section>
+          
+          <!-- เปลี่ยนไอคอนเป็นปุ่มที่กดได้ และย้ายคำสั่ง Log out มาไว้ตรงนี้แทน -->
+          <q-item-section side>
+            <q-btn flat round dense icon="logout" color="red" @click="logout" />
+          </q-item-section>
         </q-item>
       </div>
     </q-drawer>
@@ -41,12 +56,36 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
 const leftDrawerOpen = ref(true)
 const router = useRouter()
 const route = useRoute()
-const logout = () => { localStorage.removeItem('isLoggedIn'); router.push('/login') }
+
+// กำหนดค่าเริ่มต้นเป็น Guest
+const userProfile = ref({
+  name: 'Guest User',
+  avatar: ''
+})
+
+// ดึงข้อมูล User จาก localStorage เมื่อเปิดหน้าเว็บ
+onMounted(() => {
+  const savedUser = localStorage.getItem('user')
+  if (savedUser) {
+    try {
+      userProfile.value = JSON.parse(savedUser)
+    } catch (e) {
+      console.error('Failed to parse user data', e)
+    }
+  }
+})
+
+const logout = () => { 
+  localStorage.removeItem('isLoggedIn')
+  localStorage.removeItem('user')
+  router.push('/login') 
+}
 </script>
 
 <style scoped>

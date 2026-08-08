@@ -93,7 +93,17 @@ const password = ref('1234')
 
 const handleLogin = () => {
   if (email.value === 'admin1234@gmail.com' && password.value === '1234') {
+    // บันทึกสถานะการล็อกอิน
     localStorage.setItem('isLoggedIn', 'true')
+    
+    // บันทึกข้อมูล Profile จำลอง (ชื่อและรูปภาพ)
+    const userData = {
+      name: "Matasit Udomtanaput",
+      avatar: ""
+    }
+    localStorage.setItem('user', JSON.stringify(userData))
+
+    // พาไปหน้า Device
     router.push('/device')
   } else {
     alert('รหัสผ่านไม่ถูกต้อง! กรุณาใช้ admin1234@gmail.com / 1234')
@@ -154,6 +164,3 @@ const handleLogin = () => {
   background-color: #e2e6eb;
 }
 </style>
-```eof
-
-Your login page is now updated to match the exact design specifications from your reference image, including the rounded inputs, divider lines, and social login icons! Let me know if you need any further adjustments.
