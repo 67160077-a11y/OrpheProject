@@ -47,14 +47,14 @@
         <q-card class="figma-card q-pa-xl flex-grow-1">
           <div class="text-weight-bolder text-h5 q-mb-md text-dark">Lower Limb Status</div>
           
-          <!-- Graphic Placeholder (ยังไม่ใส่รูปตามคำขอ) -->
-          <div class="flex flex-center q-mb-xl q-mt-md">
-            <div style="height: 180px; width: 100px; border: 2px dashed #ccc; border-radius: 10px;" class="flex flex-center text-grey-5 text-caption text-center">
-              [ Graphic ขา ]
-            </div>
+          <!-- กราฟิกรูปขา -->
+          <div class="relative-position flex flex-center q-mb-xl q-mt-md" style="height: 220px;">
+            <!-- ใช้รูปจากตัวแปรที่เรา Import มา -->
+            <img :src="legOutlineImg" alt="Leg Outline" style="height: 100%; object-fit: contain;" />
           </div>
           
           <div class="q-gutter-y-lg">
+            <!-- Hip Power -->
             <div>
               <div class="row items-center q-mb-sm">
                 <div class="icon-circle bg-green-1 q-mr-sm"><q-icon name="north_east" :color="isConnected ? 'green-6' : 'grey-5'" size="xs" /></div>
@@ -66,6 +66,7 @@
               <q-linear-progress :value="isConnected ? 0.8 : 0" :color="isConnected ? 'green-6' : 'grey-4'" track-color="green-2" rounded size="10px" />
             </div>
 
+            <!-- Knee Control -->
             <div>
               <div class="row items-center q-mb-sm">
                 <div class="icon-circle bg-blue-1 q-mr-sm"><q-icon name="horizontal_rule" :color="isConnected ? 'blue-6' : 'grey-5'" size="xs" /></div>
@@ -77,6 +78,7 @@
               <q-linear-progress :value="isConnected ? 0.6 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" track-color="blue-2" rounded size="10px" />
             </div>
 
+            <!-- Ankle Push-off -->
             <div>
               <div class="row items-center q-mb-sm">
                 <div class="icon-circle bg-orange-1 q-mr-sm"><q-icon name="south_east" :color="isConnected ? 'orange-6' : 'grey-5'" size="xs" /></div>
@@ -177,14 +179,17 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+// Import รูปจากโฟลเดอร์ assets เข้ามา
+import legOutlineImg from '../assets/leg-outline.png'
+
 const isConnected = ref(false)
 const reportData = ref({
   recoveryScore: 0,
-  hipPower: 'default',
-  kneeControl: 'default',
-  anklePushOff: 'default',
-  propulsionGrade: '-',
-  speed: '0.00'
+  hipPower: 'improving',
+  kneeControl: 'stable',
+  anklePushOff: 'weak',
+  propulsionGrade: 'A+',
+  speed: '1.16'
 })
 
 let socket = null

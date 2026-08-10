@@ -15,15 +15,34 @@
         </div>
         <div class="q-px-md q-mt-lg">
           <div class="text-grey-6 text-caption text-weight-bold q-mb-md text-uppercase">Main Menu</div>
+          
+          <!-- 1. เมนู Device (เห็นทุกคน) -->
           <q-item clickable to="/device" class="menu-pill q-mb-md" active-class="menu-active" exact>
             <q-item-section avatar><q-icon name="explore" size="sm" /></q-item-section>
             <q-item-section class="text-weight-bold">Device</q-item-section>
             <q-item-section side><div class="dot-indicator"></div></q-item-section>
           </q-item>
-          <q-item clickable to="/report" class="menu-pill" active-class="menu-active" exact>
+          
+          <!-- 2. เมนู Report (เห็นทุกคน) -->
+          <q-item clickable to="/report" class="menu-pill q-mb-md" active-class="menu-active" exact>
             <q-item-section avatar><q-icon name="assessment" size="sm" /></q-item-section>
             <q-item-section class="text-weight-bold">Report</q-item-section>
             <q-item-section side><div class="dot-indicator"></div></q-item-section>
+          </q-item>
+
+          <!-- 3. เมนู Manage Users (เห็นเฉพาะ Admin) -->
+          <q-item 
+            v-if="userProfile.role === 'admin'" 
+            clickable 
+            to="/manage-users" 
+            class="menu-pill" 
+            active-class="menu-active" 
+            exact
+            style="background-color: #fce4ec; color: #d81b60 !important; border: 1px dashed #d81b60;"
+          >
+            <q-item-section avatar><q-icon name="manage_accounts" size="sm" color="pink-7" /></q-item-section>
+            <q-item-section class="text-weight-bold text-pink-8">Manage Users</q-item-section>
+            <q-item-section side><q-icon name="admin_panel_settings" size="xs" color="pink-7" /></q-item-section>
           </q-item>
         </div>
       </div>
