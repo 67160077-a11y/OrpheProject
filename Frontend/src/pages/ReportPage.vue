@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-xl">
-    <!-- แบนเนอร์แจ้งเตือนสถานะการเชื่อมต่อ (เชื่อม / ไม่เชื่อม) -->
+    <!-- แบนเนอร์แจ้งเตือนสถานะการเชื่อมต่อ -->
     <q-banner :class="isConnected ? 'bg-green-1 text-green-9 border-green' : 'bg-orange-1 text-orange-9 border-orange'" class="q-mb-lg rounded-borders">
       <template v-slot:avatar>
         <q-icon :name="isConnected ? 'check_circle' : 'warning'" :color="isConnected ? 'green' : 'orange'" />
@@ -13,7 +13,7 @@
     </q-banner>
 
     <div class="row q-col-gutter-xl">
-      <!-- คอลัมน์ซ้าย: Recovery Score และ Lower Limb Status -->
+      <!-- ================= คอลัมน์ซ้าย ================= -->
       <div class="col-12 col-md-4 column q-gutter-y-lg">
         <!-- Recovery Score -->
         <q-card class="figma-card q-pa-xl">
@@ -47,14 +47,11 @@
         <q-card class="figma-card q-pa-xl flex-grow-1">
           <div class="text-weight-bolder text-h5 q-mb-md text-dark">Lower Limb Status</div>
           
-          <!-- กราฟิกรูปขา -->
           <div class="relative-position flex flex-center q-mb-xl q-mt-md" style="height: 220px;">
-            <!-- ใช้รูปจากตัวแปรที่เรา Import มา -->
             <img :src="legOutlineImg" alt="Leg Outline" style="height: 100%; object-fit: contain;" />
           </div>
           
           <div class="q-gutter-y-lg">
-            <!-- Hip Power -->
             <div>
               <div class="row items-center q-mb-sm">
                 <div class="icon-circle bg-green-1 q-mr-sm"><q-icon name="north_east" :color="isConnected ? 'green-6' : 'grey-5'" size="xs" /></div>
@@ -66,7 +63,6 @@
               <q-linear-progress :value="isConnected ? 0.8 : 0" :color="isConnected ? 'green-6' : 'grey-4'" track-color="green-2" rounded size="10px" />
             </div>
 
-            <!-- Knee Control -->
             <div>
               <div class="row items-center q-mb-sm">
                 <div class="icon-circle bg-blue-1 q-mr-sm"><q-icon name="horizontal_rule" :color="isConnected ? 'blue-6' : 'grey-5'" size="xs" /></div>
@@ -78,7 +74,6 @@
               <q-linear-progress :value="isConnected ? 0.6 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" track-color="blue-2" rounded size="10px" />
             </div>
 
-            <!-- Ankle Push-off -->
             <div>
               <div class="row items-center q-mb-sm">
                 <div class="icon-circle bg-orange-1 q-mr-sm"><q-icon name="south_east" :color="isConnected ? 'orange-6' : 'grey-5'" size="xs" /></div>
@@ -93,7 +88,7 @@
         </q-card>
       </div>
       
-      <!-- คอลัมน์ขวา: กราฟและข้อมูลการวิเคราะห์ -->
+      <!-- ================= คอลัมน์ขวา ================= -->
       <div class="col-12 col-md-8">
         <div class="row q-col-gutter-lg">
           <!-- Propulsion 4 การ์ด -->
@@ -101,7 +96,7 @@
             <q-card class="figma-card q-pa-lg">
               <div class="row justify-between items-center q-mb-sm">
                 <div class="text-weight-bold text-dark text-subtitle1"><q-icon name="directions_run" class="q-mr-xs"/> Propulsion</div>
-                <div class="bg-green-1 text-green-8 rounded-borders" style="width:20px; height:20px; text-align:center; font-weight:bold; font-size:12px; line-height:20px;">?</div>
+                <div class="bg-green-1 text-green-8 rounded-borders help-icon text-center">?</div>
               </div>
               <div class="row justify-between items-end q-mb-md">
                 <div :class="isConnected ? 'text-blue-6' : 'text-grey-5'" style="font-size: 64px; font-weight: 800; line-height: 1;">
@@ -124,7 +119,7 @@
             </q-card>
           </div>
 
-          <!-- Toe-off Angle (Left & Right) -->
+          <!-- Toe-off Angle Placeholder -->
           <div class="col-12 col-sm-6" v-for="(side, index) in ['Left foot', 'Right foot']" :key="'toe'+index">
              <q-card class="figma-card q-pa-lg full-height">
                <div class="text-weight-bold text-dark q-mb-md">Toe-off Angle, Foot Height, Landing Angle <br><span class="text-green-6 text-caption">{{side}}</span></div>
@@ -143,7 +138,7 @@
              </q-card>
           </div>
 
-          <!-- Ankle Pronation -->
+          <!-- Ankle Pronation Placeholder -->
           <div class="col-12 col-sm-6">
             <q-card class="figma-card q-pa-lg">
               <div class="text-weight-bold text-dark q-mb-md">Ankle Pronation</div>
@@ -162,14 +157,71 @@
             </q-card>
           </div>
 
-          <!-- Stance Phase -->
+          <!-- ================= Stance Phase ================= -->
           <div class="col-12 col-sm-6">
-             <q-card class="figma-card q-pa-lg">
-               <div class="text-weight-bold text-dark q-mb-md">Stance Phase</div>
-               <div class="row items-center q-mb-sm"><div class="col-4 text-caption">Left foot</div><div class="col-8"><q-linear-progress :value="isConnected ? 0.7 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" rounded /></div></div>
-               <div class="row items-center q-mb-sm"><div class="col-4 text-caption">Right foot</div><div class="col-8"><q-linear-progress :value="isConnected ? 0.7 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" rounded /></div></div>
+             <q-card class="figma-card q-pa-lg full-height">
+               
+               <div class="row justify-between items-start q-mb-lg">
+                 <div class="text-weight-bolder text-h5 text-dark" style="letter-spacing: -0.5px;">Stance Phase</div>
+               </div>
+
+               <div class="row items-center">
+                 <!-- ฝั่งซ้าย: หลอดแสดงผล -->
+                 <div class="col-9 q-gutter-y-md q-pr-md" style="border-right: 1px solid #eef0f2;">
+                   
+                   <!-- ครั้งที่ 1: สีน้ำเงิน (Left Foot) -->
+                   <div class="row items-center no-wrap">
+                     <div class="text-caption text-teal-6 text-weight-bold" style="width: 70px;">Left foot</div>
+                     <div class="col row items-center no-wrap">
+                       <q-linear-progress :value="isConnected ? reportData.stancePhaseLeft1 : 0" color="blue-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <span class="q-ml-sm text-caption text-weight-bold text-dark" style="width: 35px;">
+                         {{ isConnected ? Math.round(reportData.stancePhaseLeft1 * 100) + '%' : '' }}
+                       </span>
+                     </div>
+                   </div>
+                   
+                   <!-- ครั้งที่ 1: สีน้ำเงิน (Right Foot) -->
+                   <!-- แก้ไข: ย้ายเปอเซ็นต์มาไว้ขวาสุดเหมือน Left foot เพื่อให้ขอบซ้ายตรงกันเป๊ะ -->
+                   <div class="row items-center no-wrap">
+                     <div class="text-caption text-dark text-weight-bold" style="width: 70px;">Right foot</div>
+                     <div class="col row items-center no-wrap">
+                       <q-linear-progress reverse :value="isConnected ? reportData.stancePhaseRight1 : 0" color="blue-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <span class="q-ml-sm text-caption text-weight-bold text-dark" style="width: 35px;">
+                         {{ isConnected ? Math.round(reportData.stancePhaseRight1 * 100) + '%' : '' }}
+                       </span>
+                     </div>
+                   </div>
+
+                   <!-- ครั้งที่ 2: สีเขียว (Left Foot) -->
+                   <div class="row items-center no-wrap q-mt-lg">
+                     <div class="text-caption text-teal-6 text-weight-bold" style="width: 70px;">Left foot</div>
+                     <div class="col row items-center no-wrap">
+                       <q-linear-progress :value="isConnected ? reportData.stancePhaseLeft2 : 0" color="green-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <div class="q-ml-sm" style="width: 35px;"></div>
+                     </div>
+                   </div>
+
+                   <!-- ครั้งที่ 2: สีเขียว (Right Foot) -->
+                   <!-- แก้ไข: จัดโครงสร้างให้เหมือนด้านบน -->
+                   <div class="row items-center no-wrap">
+                     <div class="text-caption text-dark text-weight-bold" style="width: 70px;">Right foot</div>
+                     <div class="col row items-center no-wrap">
+                       <q-linear-progress reverse :value="isConnected ? reportData.stancePhaseRight2 : 0" color="green-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <div class="q-ml-sm" style="width: 35px;"></div>
+                     </div>
+                   </div>
+
+                 </div>
+                 
+                 <!-- ฝั่งขวา: รูปไอคอนคนเดิน -->
+                 <div class="col-3 flex flex-center">
+                   <img :src="walkIconImg" style="height: 80px; object-fit: contain; opacity: 0.6;" alt="Walk Icon" />
+                 </div>
+               </div>
+               
              </q-card>
           </div>
+
         </div>
       </div>
     </div>
@@ -179,8 +231,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-// Import รูปจากโฟลเดอร์ assets เข้ามา
+// Import รูปจากโฟลเดอร์ assets
 import legOutlineImg from '../assets/leg-outline.png'
+import walkIconImg from '../assets/walk-icon.png'
 
 const isConnected = ref(false)
 const reportData = ref({
@@ -189,13 +242,18 @@ const reportData = ref({
   kneeControl: 'stable',
   anklePushOff: 'weak',
   propulsionGrade: 'A+',
-  speed: '1.16'
+  speed: '1.16',
+  
+  // ค่าตัวแปรรับ Real-time Stance Phase 
+  stancePhaseLeft1: 0.70,   
+  stancePhaseRight1: 0.70,  
+  stancePhaseLeft2: 0.35,   
+  stancePhaseRight2: 0.40   
 })
 
 let socket = null
 
 onMounted(() => {
-  // เชื่อมต่อ WebSocket ไปยัง Python Backend (FastAPI)
   socket = new WebSocket('ws://localhost:8765/ws')
 
   socket.onopen = () => {
@@ -205,7 +263,7 @@ onMounted(() => {
   socket.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data)
-      reportData.value = data
+      reportData.value = { ...reportData.value, ...data }
       isConnected.value = true
     } catch (e) {
       console.error('Error parsing real-time data:', e)
@@ -234,4 +292,5 @@ onUnmounted(() => {
 .triangle-marker { position: absolute; top: -8px; left: 70%; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #1e88e5; }
 .border-orange { border: 1px solid #ffb74d; }
 .border-green { border: 1px solid #81c784; }
+.help-icon { width: 22px; height: 22px; font-weight: bold; font-size: 13px; line-height: 22px; cursor: pointer; }
 </style>
