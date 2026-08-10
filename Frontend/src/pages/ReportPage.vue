@@ -138,22 +138,65 @@
              </q-card>
           </div>
 
-          <!-- Ankle Pronation Placeholder -->
+          <!-- ================= Ankle Pronation (ดีไซน์สมบูรณ์แบบตาม Figma) ================= -->
           <div class="col-12 col-sm-6">
-            <q-card class="figma-card q-pa-lg">
-              <div class="text-weight-bold text-dark q-mb-md">Ankle Pronation</div>
-              <div class="row items-center q-mb-sm">
-                <div class="col-2 text-caption">1</div>
-                <div class="col-3 text-caption">{{ isConnected ? '7.3°' : '0.0°' }}</div>
-                <div class="col-4"><q-linear-progress :value="isConnected ? 0.6 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" rounded /></div>
-                <div class="col-3 text-right text-caption">{{ isConnected ? '11.6°' : '0.0°' }}</div>
+            <q-card class="figma-card q-pa-lg full-height">
+              
+              <!-- หัวการ์ด -->
+              <div class="text-weight-bolder text-h5 text-dark q-mb-md" style="letter-spacing: -0.5px;">Ankle Pronation</div>
+
+              <!-- รูปภาพข้อเท้าซ้ายและขวาตรงกลาง -->
+              <div class="row justify-around items-center q-mb-md" style="height: 70px;">
+                <img :src="ankleLeftImg" style="height: 100%; object-fit: contain;" alt="Ankle Left" />
+                <img :src="ankleRightImg" style="height: 100%; object-fit: contain;" alt="Ankle Right" />
               </div>
-              <div class="row items-center">
-                <div class="col-2 text-caption">2</div>
-                <div class="col-3 text-caption">{{ isConnected ? '4.3°' : '0.0°' }}</div>
-                <div class="col-4"><q-linear-progress :value="isConnected ? 0.4 : 0" :color="isConnected ? 'green-6' : 'grey-4'" rounded /></div>
-                <div class="col-3 text-right text-caption">{{ isConnected ? '9.0°' : '0.0°' }}</div>
+
+              <!-- แถวที่ 1: เลข 1 (สีฟ้า จัดกึ่งกลางวงกลมเป๊ะ) พร้อมหลอด 3 ช่อง -->
+              <div class="row items-center q-mb-md no-wrap">
+                <div class="flex flex-center text-bold text-white shadow-1 custom-badge bg-blue-6 q-mr-md">1</div>
+                
+                <div class="col row q-col-gutter-sm no-wrap items-center">
+                  <!-- ช่องที่ 1 -->
+                  <div class="col row items-center no-wrap">
+                    <q-linear-progress :value="isConnected ? reportData.anklePro1_1 / 20 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-2"/>
+                    <span class="q-ml-xs text-caption text-weight-bold text-dark" style="width: 32px;">{{ isConnected ? reportData.anklePro1_1 + '°' : '' }}</span>
+                  </div>
+                  <!-- ช่องที่ 2 -->
+                  <div class="col row items-center no-wrap">
+                    <q-linear-progress :value="isConnected ? reportData.anklePro1_2 / 20 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-2"/>
+                    <span class="q-ml-xs text-caption text-weight-bold text-dark" style="width: 32px;">{{ isConnected ? reportData.anklePro1_2 + '°' : '' }}</span>
+                  </div>
+                  <!-- ช่องที่ 3 -->
+                  <div class="col row items-center no-wrap">
+                    <q-linear-progress :value="isConnected ? reportData.anklePro1_3 / 20 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-2"/>
+                    <span class="q-ml-xs text-caption text-weight-bold text-dark" style="width: 32px;">{{ isConnected ? reportData.anklePro1_3 + '°' : '' }}</span>
+                  </div>
+                </div>
               </div>
+
+              <!-- แถวที่ 2: เลข 2 (สีเขียว จัดกึ่งกลางวงกลมเป๊ะ) พร้อมหลอด 3 ช่อง -->
+              <div class="row items-center no-wrap">
+                <div class="flex flex-center text-bold text-white shadow-1 custom-badge bg-green-6 q-mr-md">2</div>
+                
+                <div class="col row q-col-gutter-sm no-wrap items-center">
+                  <!-- ช่องที่ 1 -->
+                  <div class="col row items-center no-wrap">
+                    <q-linear-progress :value="isConnected ? reportData.anklePro2_1 / 20 : 0" :color="isConnected ? 'green-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-2"/>
+                    <span class="q-ml-xs text-caption text-weight-bold text-dark" style="width: 32px;">{{ isConnected ? reportData.anklePro2_1 + '°' : '' }}</span>
+                  </div>
+                  <!-- ช่องที่ 2 -->
+                  <div class="col row items-center no-wrap">
+                    <q-linear-progress :value="isConnected ? reportData.anklePro2_2 / 20 : 0" :color="isConnected ? 'green-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-2"/>
+                    <span class="q-ml-xs text-caption text-weight-bold text-dark" style="width: 32px;">{{ isConnected ? reportData.anklePro2_2 + '°' : '' }}</span>
+                  </div>
+                  <!-- ช่องที่ 3 -->
+                  <div class="col row items-center no-wrap">
+                    <q-linear-progress :value="isConnected ? reportData.anklePro2_3 / 20 : 0" :color="isConnected ? 'green-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-2"/>
+                    <span class="q-ml-xs text-caption text-weight-bold text-dark" style="width: 32px;">{{ isConnected ? reportData.anklePro2_3 + '°' : '' }}</span>
+                  </div>
+                </div>
+              </div>
+              
             </q-card>
           </div>
 
@@ -173,7 +216,7 @@
                    <div class="row items-center no-wrap">
                      <div class="text-caption text-teal-6 text-weight-bold" style="width: 70px;">Left foot</div>
                      <div class="col row items-center no-wrap">
-                       <q-linear-progress :value="isConnected ? reportData.stancePhaseLeft1 : 0" color="blue-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <q-linear-progress :value="isConnected ? reportData.stancePhaseLeft1 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-3"/>
                        <span class="q-ml-sm text-caption text-weight-bold text-dark" style="width: 35px;">
                          {{ isConnected ? Math.round(reportData.stancePhaseLeft1 * 100) + '%' : '' }}
                        </span>
@@ -181,11 +224,10 @@
                    </div>
                    
                    <!-- ครั้งที่ 1: สีน้ำเงิน (Right Foot) -->
-                   <!-- แก้ไข: ย้ายเปอเซ็นต์มาไว้ขวาสุดเหมือน Left foot เพื่อให้ขอบซ้ายตรงกันเป๊ะ -->
                    <div class="row items-center no-wrap">
                      <div class="text-caption text-dark text-weight-bold" style="width: 70px;">Right foot</div>
                      <div class="col row items-center no-wrap">
-                       <q-linear-progress reverse :value="isConnected ? reportData.stancePhaseRight1 : 0" color="blue-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <q-linear-progress reverse :value="isConnected ? reportData.stancePhaseRight1 : 0" :color="isConnected ? 'blue-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-3"/>
                        <span class="q-ml-sm text-caption text-weight-bold text-dark" style="width: 35px;">
                          {{ isConnected ? Math.round(reportData.stancePhaseRight1 * 100) + '%' : '' }}
                        </span>
@@ -196,17 +238,16 @@
                    <div class="row items-center no-wrap q-mt-lg">
                      <div class="text-caption text-teal-6 text-weight-bold" style="width: 70px;">Left foot</div>
                      <div class="col row items-center no-wrap">
-                       <q-linear-progress :value="isConnected ? reportData.stancePhaseLeft2 : 0" color="green-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <q-linear-progress :value="isConnected ? reportData.stancePhaseLeft2 : 0" :color="isConnected ? 'green-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-3"/>
                        <div class="q-ml-sm" style="width: 35px;"></div>
                      </div>
                    </div>
 
                    <!-- ครั้งที่ 2: สีเขียว (Right Foot) -->
-                   <!-- แก้ไข: จัดโครงสร้างให้เหมือนด้านบน -->
                    <div class="row items-center no-wrap">
                      <div class="text-caption text-dark text-weight-bold" style="width: 70px;">Right foot</div>
                      <div class="col row items-center no-wrap">
-                       <q-linear-progress reverse :value="isConnected ? reportData.stancePhaseRight2 : 0" color="green-6" size="14px" rounded class="col" track-color="grey-3"/>
+                       <q-linear-progress reverse :value="isConnected ? reportData.stancePhaseRight2 : 0" :color="isConnected ? 'green-6' : 'grey-4'" size="14px" rounded class="col" track-color="grey-3"/>
                        <div class="q-ml-sm" style="width: 35px;"></div>
                      </div>
                    </div>
@@ -234,6 +275,8 @@ import { ref, onMounted, onUnmounted } from 'vue'
 // Import รูปจากโฟลเดอร์ assets
 import legOutlineImg from '../assets/leg-outline.png'
 import walkIconImg from '../assets/walk-icon.png'
+import ankleLeftImg from '../assets/ankle-left.png'
+import ankleRightImg from '../assets/ankle-right.png'
 
 const isConnected = ref(false)
 const reportData = ref({
@@ -244,11 +287,19 @@ const reportData = ref({
   propulsionGrade: 'A+',
   speed: '1.16',
   
-  // ค่าตัวแปรรับ Real-time Stance Phase 
+  // Stance Phase 
   stancePhaseLeft1: 0.70,   
   stancePhaseRight1: 0.70,  
   stancePhaseLeft2: 0.35,   
-  stancePhaseRight2: 0.40   
+  stancePhaseRight2: 0.40,
+  
+  // Ankle Pronation (ค่าเริ่มต้นก่อนเชื่อมต่อ)
+  anklePro1_1: 0,
+  anklePro1_2: 0,
+  anklePro1_3: 0,
+  anklePro2_1: 0,
+  anklePro2_2: 0,
+  anklePro2_3: 0
 })
 
 let socket = null
@@ -292,5 +343,16 @@ onUnmounted(() => {
 .triangle-marker { position: absolute; top: -8px; left: 70%; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #1e88e5; }
 .border-orange { border: 1px solid #ffb74d; }
 .border-green { border: 1px solid #81c784; }
-.help-icon { width: 22px; height: 22px; font-weight: bold; font-size: 13px; line-height: 22px; cursor: pointer; }
+
+/* CSS สำหรับจัดเลข 1 และ 2 ให้อยู่กึ่งกลางวงกลมเป๊ะๆ */
+.custom-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 </style>
