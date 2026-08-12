@@ -27,30 +27,39 @@
 
       <!-- ขวา: แบตเตอรี่ และ สถานะการเชื่อมต่อ -->
       <div class="col-12 col-md-3 column q-gutter-y-lg">
+        
         <!-- แบตเตอรี่ซ้าย (Machine L) -->
         <q-card class="figma-card q-pa-lg text-center">
           <div class="text-weight-bold text-subtitle1 q-mb-md text-dark">Battery Status</div>
-          <q-circular-progress show-value :value="isConnected ? deviceData.batteryLeft : 0" size="110px" :thickness="0.12" :color="isConnected ? 'green-7' : 'grey-4'" track-color="green-1" class="q-mb-md text-h5 text-weight-bolder text-dark">
+          <q-circular-progress show-value :value="isConnected ? deviceData.batteryLeft : 0" size="110px" :thickness="0.12" :color="isConnected ? (deviceData.batteryLeft < 20 ? 'orange-6' : 'green-7') : 'grey-4'" track-color="green-1" class="q-mb-md text-h5 text-weight-bolder text-dark">
             {{ isConnected ? deviceData.batteryLeft + '%' : '--' }}
           </q-circular-progress>
+          
           <div class="row justify-between items-center text-caption text-weight-bold q-mb-sm">
             <span class="text-dark">Machine L (Left)</span>
-            <span :class="isConnected ? 'text-green-6' : 'text-grey-5'">{{ isConnected ? 'Good' : 'Default' }}</span>
+            <span :class="isConnected ? (deviceData.batteryLeft < 20 ? 'text-orange-6' : 'text-green-6') : 'text-grey-5'">
+              {{ isConnected ? (deviceData.batteryLeft < 20 ? 'Low' : 'Good') : 'Default' }}
+            </span>
           </div>
-          <q-linear-progress :value="isConnected ? deviceData.batteryLeft / 100 : 0" :color="isConnected ? 'green-6' : 'grey-4'" track-color="grey-2" rounded size="6px" />
+          
+          <q-linear-progress :value="isConnected ? deviceData.batteryLeft / 100 : 0" :color="isConnected ? (deviceData.batteryLeft < 20 ? 'orange-6' : 'green-6') : 'grey-4'" track-color="grey-2" rounded size="6px" />
         </q-card>
 
         <!-- แบตเตอรี่ขวา (Machine R) -->
         <q-card class="figma-card q-pa-lg text-center">
           <div class="text-weight-bold text-subtitle1 q-mb-md text-dark">Battery Status</div>
-          <q-circular-progress show-value :value="isConnected ? deviceData.batteryRight : 0" size="110px" :thickness="0.12" :color="isConnected ? 'green-7' : 'grey-4'" track-color="green-1" class="q-mb-md text-h5 text-weight-bolder text-dark">
+          <q-circular-progress show-value :value="isConnected ? deviceData.batteryRight : 0" size="110px" :thickness="0.12" :color="isConnected ? (deviceData.batteryRight < 20 ? 'orange-6' : 'green-7') : 'grey-4'" track-color="green-1" class="q-mb-md text-h5 text-weight-bolder text-dark">
             {{ isConnected ? deviceData.batteryRight + '%' : '--' }}
           </q-circular-progress>
+          
           <div class="row justify-between items-center text-caption text-weight-bold q-mb-sm">
             <span class="text-dark">Machine R (Right)</span>
-            <span :class="isConnected ? 'text-green-6' : 'text-grey-5'">{{ isConnected ? 'Good' : 'Default' }}</span>
+            <span :class="isConnected ? (deviceData.batteryRight < 20 ? 'text-orange-6' : 'text-green-6') : 'text-grey-5'">
+              {{ isConnected ? (deviceData.batteryRight < 20 ? 'Low' : 'Good') : 'Default' }}
+            </span>
           </div>
-          <q-linear-progress :value="isConnected ? deviceData.batteryRight / 100 : 0" :color="isConnected ? 'green-6' : 'grey-4'" track-color="grey-2" rounded size="6px" />
+          
+          <q-linear-progress :value="isConnected ? deviceData.batteryRight / 100 : 0" :color="isConnected ? (deviceData.batteryRight < 20 ? 'orange-6' : 'green-6') : 'grey-4'" track-color="grey-2" rounded size="6px" />
         </q-card>
 
         <!-- สถานะการเชื่อมต่อ -->
@@ -66,6 +75,7 @@
             {{ isConnected ? 'เชื่อมต่อแล้ว' : 'ยังไม่ได้เชื่อมต่อ' }}
           </div>
         </q-card>
+
       </div>
     </div>
   </q-page>
@@ -83,7 +93,6 @@ const deviceData = ref({
 let socket = null
 
 onMounted(() => {
-  // เชื่อมต่อ WebSocket ไปยัง Python Backend (FastAPI พอร์ต 8765)
   socket = new WebSocket('ws://localhost:8765/ws')
 
   socket.onopen = () => {
@@ -93,7 +102,6 @@ onMounted(() => {
   socket.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data)
-      // รับค่าแบตเตอรี่แบบ Real-time จาก Backend
       deviceData.value.batteryLeft = data.batteryLeft || 0
       deviceData.value.batteryRight = data.batteryRight || 0
       isConnected.value = true
