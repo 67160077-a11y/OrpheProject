@@ -115,7 +115,17 @@
                 {{ reportData.speed }} m/s ▼
               </div>
               <div class="gradient-bar" :style="reportData.speed > 0 ? '' : 'filter: grayscale(100%); opacity: 0.3;'">
-                <div v-if="reportData.speed > 0" class="triangle-marker"></div>
+                
+                <!-- จุดที่แก้ 1: ผูกตำแหน่งซ้ายขวาตามความเร็ว (Math.min หาร 2.0) -->
+                <div 
+                  v-if="reportData.speed > 0" 
+                  class="triangle-marker"
+                  :style="{ 
+                    left: Math.min((parseFloat(reportData.speed) || 0) / 2.0 * 100, 100) + '%', 
+                    transform: 'translateX(-50%)' 
+                  }">
+                </div>
+
               </div>
               <div class="row justify-between text-grey-7 text-weight-bold q-px-sm" style="font-size: 11px; margin-top: -14px; pointer-events: none; position:relative; z-index: 1;">
                 <span>ช้า</span><span>เร็ว</span>
@@ -353,7 +363,19 @@ onUnmounted(() => {
 .icon-circle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .dot-indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
 .gradient-bar { background: linear-gradient(90deg, #f44336 0%, #ff9800 50%, #4caf50 100%); border-radius: 12px; height: 16px; position: relative; width: 100%; }
-.triangle-marker { position: absolute; top: -8px; left: 70%; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #1e88e5; }
+
+/* จุดที่แก้ 2: เอา left: 70% ออก และใส่ transition ให้เลื่อนเนียนๆ */
+.triangle-marker { 
+  position: absolute; 
+  top: -8px; 
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent; 
+  border-right: 6px solid transparent; 
+  border-top: 8px solid #1e88e5; 
+  transition: left 0.3s ease-out;
+}
+
 .border-orange { border: 1px solid #ffb74d; }
 .border-green { border: 1px solid #81c784; }
 
