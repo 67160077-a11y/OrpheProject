@@ -16,51 +16,51 @@
 
     <div class="row q-col-gutter-xl">
       <!-- ซ้าย: ส่วนรูปภาพประกอบ -->
-<div class="col-12 col-md-9">
-  <q-card class="figma-card full-height bg-white relative-position" style="min-height: 550px;">
-    <div class="device-diagram-wrapper">
-      <div class="image-container">
-        <img src="@/assets/Devicephoto.png" alt="Orphe Core Device" class="device-image" />
+      <div class="col-12 col-md-9">
+        <q-card class="figma-card full-height bg-white relative-position" style="min-height: 550px;">
+          <div class="device-diagram-wrapper">
+            <div class="image-container">
+              <img src="@/assets/Devicephoto.png" alt="Orphe Core Device" class="device-image" />
 
-        <!-- ฝาครอบด้านบน -->
-        <div class="label-item label-left" style="top: 18%;">
-          <div class="label-text text-right">ฝาครอบด้านบน<br/>( Top Cover )</div>
-          <div class="label-line"></div>
-        </div>
+              <!-- ฝาครอบด้านบน -->
+              <div class="label-item label-left" style="top: 18%;">
+                <div class="label-text text-right">ฝาครอบด้านบน<br/>( Top Cover )</div>
+                <div class="label-line"></div>
+              </div>
 
-        <!-- กรอบตรงกลาง -->
-        <div class="label-item label-right" style="top: 30%;">
-          <div class="label-line"></div>
-          <div class="label-text text-left">กรอบตรงกลาง<br/>(Mid-Frame / Gasket)</div>
-        </div>
+              <!-- กรอบตรงกลาง -->
+              <div class="label-item label-right" style="top: 30%;">
+                <div class="label-line"></div>
+                <div class="label-text text-left">กรอบตรงกลาง<br/>(Mid-Frame / Gasket)</div>
+              </div>
 
-        <!-- แผงวงจรหลัก -->
-        <div class="label-item label-left" style="top: 44%;">
-          <div class="label-text text-right">แผงวงจรหลัก<br/>( mainPCB ASSEMBLY )</div>
-          <div class="label-line"></div>
-        </div>
+              <!-- แผงวงจรหลัก -->
+              <div class="label-item label-left" style="top: 44%;">
+                <div class="label-text text-right">แผงวงจรหลัก<br/>( mainPCB ASSEMBLY )</div>
+                <div class="label-line"></div>
+              </div>
 
-        <!-- โมดูลแบตเตอรี่ -->
-        <div class="label-item label-right" style="top: 62%;">
-          <div class="label-line"></div>
-          <div class="label-text text-left">โมดูลแบตเตอรี่<br/>(Battery Module)</div>
-        </div>
+              <!-- โมดูลแบตเตอรี่ -->
+              <div class="label-item label-right" style="top: 62%;">
+                <div class="label-line"></div>
+                <div class="label-text text-left">โมดูลแบตเตอรี่<br/>(Battery Module)</div>
+              </div>
 
-        <!-- พอร์ต -->
-        <div class="label-item label-left" style="top: 80%;">
-          <div class="label-text text-right">แผงวงจรพอร์ตและขั้วต่อ<br/>(Port &amp; Connector PCB)</div>
-          <div class="label-line"></div>
-        </div>
+              <!-- พอร์ต -->
+              <div class="label-item label-left" style="top: 80%;">
+                <div class="label-text text-right">แผงวงจรพอร์ตและขั้วต่อ<br/>(Port &amp; Connector PCB)</div>
+                <div class="label-line"></div>
+              </div>
 
-        <!-- เคสฐาน -->
-        <div class="label-item label-right" style="top: 80%;">
-          <div class="label-line"></div>
-          <div class="label-text text-left">เคสฐานด้านล่าง<br/>(Bottom Base Case)</div>
-        </div>
+              <!-- เคสฐาน -->
+              <div class="label-item label-right" style="top: 80%;">
+                <div class="label-line"></div>
+                <div class="label-text text-left">เคสฐานด้านล่าง<br/>(Bottom Base Case)</div>
+              </div>
+            </div>
+          </div>
+        </q-card>
       </div>
-    </div>
-  </q-card>
-</div>
 
       <!-- ขวา: แบตเตอรี่ และ สถานะการเชื่อมต่อ -->
       <div class="col-12 col-md-3 column q-gutter-y-lg">
@@ -173,18 +173,21 @@ onUnmounted(() => {
 .device-diagram-wrapper {
   width: 100%;
   height: 100%;
-  min-height: 550px;
+  min-height: 600px; /* เพิ่มความสูงขั้นต่ำให้รับกับรูปที่ใหญ่ขึ้น */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 160px; /* เผื่อพื้นที่ซ้าย-ขวาให้ป้ายข้อความ */
+  padding: 20px;
+  overflow-x: auto; 
 }
 
-/* กล่องนี้คือขนาด "จริง" ของรูป - ทุกอย่างอ้างอิงจากตรงนี้ */
 .image-container {
   position: relative;
-  width: clamp(320px, 40vw, 550px);         /* << ปรับตรงนี้เพื่อขยาย/ย่อรูป */
-  aspect-ratio: 1 / 1;   /* รูปคุณเป็นสี่เหลี่ยมจัตุรัส 500x500 */
+  /* 🌟 ขยายขนาดรูปให้ใหญ่ขึ้นมากสุดที่ 500px (จากเดิม 350px) */
+  width: clamp(250px, 45vw, 500px); 
+  aspect-ratio: 1 / 1;
+  /* ขอบซ้ายขวาสำหรับวางตัวหนังสือ ยืดหยุ่นตามขนาดจอ */
+  margin: 0 clamp(100px, 12vw, 160px); 
 }
 
 .device-image {
@@ -199,30 +202,32 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 6px;
-  width: 190px;
+  width: max-content;
+  max-width: 160px; /* ขยายกรอบตัวหนังสือให้ยาวขึ้นนิดนึง */
 }
 
 .label-left {
-  right: 100%;              /* เริ่มจากขอบซ้ายของรูปพอดี */
+  right: 100%; 
   justify-content: flex-end;
 }
 
 .label-right {
-  left: 100%;                /* เริ่มจากขอบขวาของรูปพอดี */
+  left: 100%; 
 }
 
 .label-text {
-  font-size: 12px;
+  font-size: clamp(11px, 1.2vw, 14px); /* 🌟 ขยายฟอนต์ให้ใหญ่ขึ้นตามรูป */
   font-weight: 700;
   color: #2d2d2d;
   line-height: 1.3;
-  white-space: nowrap;
 }
+.label-left .label-text { text-align: right; }
+.label-right .label-text { text-align: left; }
 
 .label-line {
   height: 1px;
   background-color: #444;
-  width: 40px;
+  width: clamp(20px, 4vw, 50px); /* ยืดเส้นชี้ให้ยาวขึ้นสมดุลกับจอ */
   flex-shrink: 0;
   position: relative;
 }
@@ -237,15 +242,25 @@ onUnmounted(() => {
   border-bottom: 3px solid transparent;
 }
 
-/* label-left: เส้นอยู่ทางซ้ายของรูป → หัวลูกศรต้องอยู่ปลายขวา (ชี้เข้าหารูป) */
 .label-left .label-line::after {
   right: -1px;
   border-left: 5px solid #444;
 }
 
-/* label-right: เส้นอยู่ทางขวาของรูป → หัวลูกศรต้องอยู่ปลายซ้าย (ชี้เข้าหารูป) */
 .label-right .label-line::before {
   left: -1px;
   border-right: 5px solid #444;
+}
+
+/* =========================================
+   Media Query: ปรับอัตโนมัติสำหรับมือถือ/แท็บเล็ต 
+   ========================================= */
+@media (max-width: 768px) {
+  .image-container {
+    margin: 0 90px; 
+  }
+  .device-diagram-wrapper {
+    min-height: 400px;
+  }
 }
 </style>
